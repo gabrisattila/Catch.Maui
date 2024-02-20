@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Catch.Maui.View.GamePage"
+             Title="Catch Me if You Can">
+
+    <Grid Margin="3" RowSpacing = "4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Button Text="Pause" Command="{Binding PauseGameCommand}" Grid.Row="0" HorizontalOptions="Start"/>
+        <Label Text="{Binding All}" Grid.Row="0" HorizontalOptions="Center"/>
+        <Button Text="Beállítások" Command="{Binding SettingsCommand}" Grid.Row="0" HorizontalOptions="End"/>
+        <Button Grid.Row="1" Command="{Binding NewGameCommand}" CommandParameter="11" Text="11 X 11" HorizontalOptions="Start"/>
+        <Button Grid.Row="1" Command="{Binding NewGameCommand}" CommandParameter="15" Text="15 X 15" HorizontalOptions="Center"/>
+        <Button Grid.Row="1" Command="{Binding NewGameCommand}" CommandParameter="21" Text="21 X 21" HorizontalOptions="End"/>
+        <Grid
+            Grid.Row="2"
+            BindableLayout.ItemsSource="{Binding Fields}"
+            RowDefinitions="{Binding GameTableRows}"
+            ColumnDefinitions="{Binding GameTableColumns}"
+            ColumnSpacing="2"
+            RowSpacing="2"
+            >
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Button 
+                        Grid.Row="{Binding X}"
+                        Grid.Column="{Binding Y}"
+                        Command="{Binding StepCommand}"
+                        CommandParameter="{Binding Number}"
+                        Background="{Binding Color}"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand"
+                        />
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </Grid>
+        <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center">
+            <Label Text="{Binding Time}"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>
